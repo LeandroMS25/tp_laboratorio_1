@@ -7,7 +7,7 @@
 
 int sumarInt(int *pResultado, int operadorA, int operadorB);
 int restarInt(int *pResultado, int operadorA, int operadorB);
-int multiplicarInt(float *pResultado, int operadorA, int operadorB);
+int multiplicarInt(int *pResultado, int operadorA, int operadorB);
 int dividirInt(float *pResultado, int operadorA, int operadorB);
 int calcularFactorialInt(int *pResultado, int operador);
 
