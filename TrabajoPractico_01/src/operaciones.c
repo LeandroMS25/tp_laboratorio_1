@@ -88,7 +88,7 @@ int calcularFactorialInt(int *pResultado, int operador)
 	int factorial = 1;
 	int i;
 
-	if(pResultado != NULL && operador > 0)
+	if(pResultado != NULL && operador >= 0)
 	{
 		for (i = 0; i < operador; i++)
 		{
