@@ -76,7 +76,7 @@ int dividirInt(float *pResultado, int operadorA, int operadorB)
 	return retorno;
 }
 /*
- * \ brief - Calcula el factorial de 1 numero enteros.
+ * \ brief - Calcula el factorial de 1 numero entero.
  * \ param - int* pResultado, Puntero al espacio de memoria donde se dejara el valor obtenido.
  * \ param - int operadorA, Primer numero de la operación matemática.
  * \ param - int operadorB, Segundo numero de la operación matemática.

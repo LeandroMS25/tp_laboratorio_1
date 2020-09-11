@@ -52,7 +52,7 @@ int main(void)
 			case 2:
 				if(flagNumero2 == 0)
 				{
-					getInt(&numero2, "Ingrese el segundo operador: ", "\nEl número ingresado no es válido.", INT_MIN, INT_MAX);
+					getInt(&numero2, "Ingrese el segundo operador: ", "El número ingresado no es válido.\n", INT_MIN, INT_MAX);
 					flagNumero2 = 1;
 				}
 				else
@@ -63,7 +63,7 @@ int main(void)
 				system("cls");
 				break;
 			case 3:
-				if(flagNumero1 == 0 && flagNumero2 == 0)
+				if(flagNumero1 == 0 || flagNumero2 == 0)
 				{
 					printf("Debe ingresar los operadores antes de calcular las operaciones.\n\n");
 					system("pause");
