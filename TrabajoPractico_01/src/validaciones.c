@@ -4,7 +4,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
 /*
  * \ brief - Solicita un entero al usuario, lo válida y devuelve el resultado.
  * \ param - char* mensaje, Mensaje a ser mostrado al usuario para solicitarle el dato.

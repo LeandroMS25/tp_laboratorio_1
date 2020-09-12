@@ -140,7 +140,7 @@ int main(void)
 				system("pause");
 				break;
 			default:
-			printf("La opción ingresada no es valida.\n\n");
+			printf("La opcion ingresada no es valida.\n\n");
 			system("pause");
 			system("cls");
 				break;
