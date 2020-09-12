@@ -39,7 +39,7 @@ int main(void)
 			case 1:
 				if(flagNumero1 == 0)
 				{
-					getInt(&numero1, "Ingrese el primer operador: ", "El número ingresado no es válido.\n", INT_MIN, INT_MAX);
+					getInt(&numero1, "Ingrese el primer operador: ", "El número ingresado no es valido.\n", INT_MIN, INT_MAX);
 					flagNumero1 = 1;
 				}
 				else
@@ -52,7 +52,7 @@ int main(void)
 			case 2:
 				if(flagNumero2 == 0)
 				{
-					getInt(&numero2, "Ingrese el segundo operador: ", "El número ingresado no es válido.\n", INT_MIN, INT_MAX);
+					getInt(&numero2, "Ingrese el segundo operador: ", "El numero ingresado no es valido.\n", INT_MIN, INT_MAX);
 					flagNumero2 = 1;
 				}
 				else
@@ -106,25 +106,25 @@ int main(void)
 					}
 					else
 					{
-						printf("La división de %d/(%d) da: %.2f.\n",numero1,numero2,division);
+						printf("La division de %d/(%d) da: %.2f.\n",numero1,numero2,division);
 					}
 					printf("La multiplicacion de %d*(%d) da: %d.\n",numero1,numero2,multiplicacion);
 					if(numero1 < 0)
 					{
 						if(numero2 < 0)
 						{
-							printf("No se puede hacer factorial de números negativos.\n\n");
+							printf("No se puede hacer factorial de numeros negativos.\n\n");
 						}
 						else
 						{
-							printf("El factorial de (B=%d) es: %d. A: No se puede hacer factorial de un número negativo.\n\n",numero2,factorialNum2);
+							printf("El factorial de (B=%d) es: %d. A: No se puede hacer factorial de un numero negativo.\n\n",numero2,factorialNum2);
 						}
 					}
 					else
 					{
 						if(numero2 < 0)
 						{
-							printf("El factorial de (A=%d) es: %d. B: No se puede hacer factorial de un número negativo.\n\n",numero1,factorialNum1);
+							printf("El factorial de (A=%d) es: %d. B: No se puede hacer factorial de un numero negativo.\n\n",numero1,factorialNum1);
 						}
 						else
 						{
@@ -136,11 +136,11 @@ int main(void)
 				system("cls");
 				break;
 			case 5:
-				printf("Usted decidió salir del programa.\n\n");
+				printf("Usted decidio salir del programa.\n\n");
 				system("pause");
 				break;
 			default:
-			printf("La opción ingresada no es válida.\n\n");
+			printf("La opción ingresada no es valida.\n\n");
 			system("pause");
 			system("cls");
 				break;

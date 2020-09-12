@@ -44,8 +44,8 @@ int mostrarMenu(int *pOpcion, int operador1, int operador2, int flagOp1, int fla
 		printf("\n3- Calcular todas las operaciones.");
 		printf("\n\ta) Calcular la suma (A+B)");
 		printf("\n\tb) Calcular la resta(A-B)");
-		printf("\n\tc) Calcular la división (A/B)");
-		printf("\n\td) Calcular la multiplicación (A*B)");
+		printf("\n\tc) Calcular la division (A/B)");
+		printf("\n\td) Calcular la multiplicacion (A*B)");
 		printf("\n\te) Calcular el factorial de (A!) y (B!)");
 		// La opción 4 nos permite observar los resultados obtenidos en el punto anterior.
 		printf("\n4- Informar los resultados.");
