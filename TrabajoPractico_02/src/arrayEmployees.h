@@ -1,8 +1,6 @@
 /*
  * arrayEmployees.h
- *
- *  Created on: 26 sept. 2020
- *      Author: leito
+ * Author: Leandro Sobrino
  */
 
 #ifndef ARRAYEMPLOYEES_H_

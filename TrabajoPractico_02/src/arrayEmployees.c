@@ -1,10 +1,7 @@
 /*
  * arrayEmployees.c
- *
- *  Created on: 26 sept. 2020
- *      Author: leito
+ * Author: Leandro Sobrino
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <float.h>

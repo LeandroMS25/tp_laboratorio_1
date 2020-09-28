@@ -1,8 +1,6 @@
 /*
  * validaciones.h
- *
- *  Created on: 26 sept. 2020
- *      Author: leito
+ * Author: Leandro Sobrino
  */
 
 #ifndef VALIDACIONES_H_
