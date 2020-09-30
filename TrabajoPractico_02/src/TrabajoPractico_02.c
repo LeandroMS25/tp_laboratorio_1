@@ -14,7 +14,7 @@
 #include "validaciones.h"
 #include "menu.h"
 
-#define	COUNT_EMPLOYEES 100
+#define	COUNT_EMPLOYEES 1000
 
 int main(void)
 {
@@ -28,6 +28,7 @@ int main(void)
 	int indexRemove;
 	int idModify;
 	int indexModify;
+	int order;
 	float accumulator;
 	float average;
 	int counter;
@@ -46,45 +47,25 @@ int main(void)
 				switch (optionMenu)
 				{
 					case 1:
-						if(requestDataEmployee(&auxEmployee) == 0)
-						{
+						if( requestDataEmployee(&auxEmployee) == 0 &&
 							addEmployees(listEmployees, COUNT_EMPLOYEES, auxEmployee.name,
-									auxEmployee.lastName, auxEmployee.salary, auxEmployee.sector);
+							auxEmployee.lastName, auxEmployee.salary, auxEmployee.sector) == 0)
+						{
+							printf("El empleado fue cargado correctamente.\n");
 						}
 						break;
 					case 2:
 						if( printEmployees(listEmployees, COUNT_EMPLOYEES) == 0 &&
 							utn_getNumberInt(&idModify, "Ingrese el id del empleado que quiere dar de baja: ", "Error.\n", 1, INT_MAX, 2) == 0)
 						{
-							if(findEmployeeById(listEmployees, COUNT_EMPLOYEES, idModify, &indexModify) == 0)
+							if( findEmployeeById(listEmployees, COUNT_EMPLOYEES, idModify, &indexModify) == 0 &&
+								modifyEmployee(listEmployees, COUNT_EMPLOYEES, auxEmployee, indexModify, optionModify) == 0)
 							{
-								switch (optionModify)
-								{
-									case 1:
-										if(utn_getString(auxEmployee.name, "Ingrese el nuevo nombre: ", "\nError.", 2, COUNT_EMPLOYEES) == 0)
-										{
-											strncpy(listEmployees[indexModify].name, auxEmployee.name, LONG_NAME);
-										}
-										break;
-									case 2:
-										if(utn_getString(auxEmployee.lastName, "Ingrese el nuevo apellido: ", "\nError.", 2, COUNT_EMPLOYEES) == 0)
-										{
-											strncpy(listEmployees[indexModify].lastName, auxEmployee.lastName, LONG_LASTNAME);
-										}
-										break;
-									case 3:
-										if(utn_getSalary(&auxEmployee.salary, "Ingrese el nuevo salario: ", "\nError.", 1, FLT_MAX, 2) == 0)
-										{
-											listEmployees[indexModify].salary = auxEmployee.salary;
-										}
-										break;
-									case 4:
-										if(utn_getNumberInt(&auxEmployee.sector, "Ingrese el nuevo sector: ", "\nError.", 1, SECTOR_MAX, 2) == 0)
-										{
-											listEmployees[indexModify].sector = auxEmployee.sector;
-										}
-										break;
-								}
+								printf("El empleado se modifico correctamente.\n");
+							}
+							else
+							{
+								printf("No hay datos ingresados en ese id.\n");
 							}
 						}
 						break;
@@ -107,8 +88,10 @@ int main(void)
 						switch (optionReport)
 						{
 							case 1:
-								if(sortEmployeesLastNameSector(listEmployees, COUNT_EMPLOYEES) == 0)
+								if( utn_getNumberInt(&order, "Indiqué el orden de los empleados (1- Ascendente / 0- Descendente): ", "Error.\n", 0, 1, 2) == 0 &&
+									sortEmployeesByLastNameSector(listEmployees, COUNT_EMPLOYEES, order) == 0)
 								{
+									printf("El listado fue ordenado correctamente.\n");
 									printEmployees(listEmployees, COUNT_EMPLOYEES);
 								}
 								break;

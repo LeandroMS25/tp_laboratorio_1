@@ -14,7 +14,7 @@
  * \ param - int flagResultados, indica que ya fueron calculadas las operaciones para poder mostrar los resultados.
  * \ return - (-1) en caso de error / (0) en caso de funcionar.
  */
-int mostrarMenu(int *pOpcion, int operador1, int operador2, int flagOp1, int flagOp2,int flagResultados)
+int mostrarMenu(int *pOpcion, int operador1, int operador2, int flagOp1, int flagOp2)
 {
 	int retorno = -1;
 	int opcion;

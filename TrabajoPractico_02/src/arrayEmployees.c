@@ -100,18 +100,25 @@ int addEmployees(Employee* list, int len, char* name, char* lastName, float sala
  * \param int len, es el limite de array.
  * \param Employee aux, recibe un dato del tipo Employee.
  * \param int index, es el indice donde se cargara el empleados.
+ * \param int field, indica el campo que será modificado.
  * \return (-1) Error / (0) Ok
  */
-int modifyEmployee(Employee* list, int len, Employee aux, int index)
+int modifyEmployee(Employee* list, int len, Employee aux, int index, int field)
 {
 	int retorno = -1;
 
 	if(list != NULL && len > 0 && index >= 0 && list[index].isEmpty == 0)
 	{
-		aux.id = list[index].id;
-		aux.isEmpty = 0;
-		list[index] = aux;
-		retorno = 0;
+		if( (field == 1 && utn_getString(aux.name, "Ingrese el nombre del empleado: ", "Nombre invalido.\n", 2, LONG_NAME - 1) == 0) ||
+			(field == 2 && utn_getString(aux.lastName, "Ingrese el apellido del empleado: ", "Apellido invalido.\n", 2, LONG_LASTNAME- 1) == 0) ||
+			(field == 3 && utn_getSalary(&aux.salary, "Ingrese el salario del empleado: ", "Salario invalido.\n", 1, FLT_MAX, 2) == 0) ||
+			(field == 4 && utn_getNumberInt(&aux.sector, "Ingrese el sector del empleado (1 - 7): ", "Sector invalido.\n", 1, SECTOR_MAX, 2) == 0))
+		{
+			aux.id = list[index].id;
+			aux.isEmpty = 0;
+			list[index] = aux;
+			retorno = 0;
+		}
 	}
 	return retorno;
 }
@@ -164,9 +171,10 @@ int removeEmployee(Employee* list, int len, int index)
  * \ brief - Ordena array de alumnos por nombre.
  * \ param - Employee* list, recibe el array a utilizar.
  * \ param - int len, indica la longitud del array.
+ * \ param - int order, indica el orden de los elementos. 1 en caso de ascendente y 0 en caso de descendente.
  * \ return - (-1) en caso de error / (0) en caso de funcionar.
  */
-int sortEmployeesLastNameSector(Employee* list, int len)
+int sortEmployeesByLastNameSector(Employee* list, int len, int order)
 {
 	int retorno = -1;
 	int i;
@@ -179,13 +187,15 @@ int sortEmployeesLastNameSector(Employee* list, int len)
 			flagSwap = 0;
 			for (i = 0; i < (len - 1); i++)
 			{
-				if(list[i].isEmpty || list[i+1].isEmpty)
-				{
-					continue;
-				}
-				if( strncmp(list[i].lastName, list[i+1].lastName,LONG_NAME) > 0 ||
+				if(	(order == 1 &&
+					((strncmp(list[i].lastName, list[i+1].lastName,LONG_NAME) > 0 ||
 					(strncmp(list[i].lastName, list[i+1].lastName,LONG_NAME) == 0 &&
-					list[i].sector > list[i+1].sector))
+					list[i].sector > list[i+1].sector)))) ||
+					(order == 0 &&
+					((strncmp(list[i].lastName, list[i+1].lastName,LONG_NAME) < 0 ||
+					(strncmp(list[i].lastName, list[i+1].lastName,LONG_NAME) == 0 &&
+					list[i].sector < list[i+1].sector)))))
+
 				{
 					aux = list[i];
 					list[i] = list[i+1];

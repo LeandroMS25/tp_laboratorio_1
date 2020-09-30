@@ -27,13 +27,14 @@ int main(void)
 	int flagNumero1 = 0;
 	int flagNumero2 = 0;
 	int flagResultados = 0;
+	int flagReiniciar = 0;
 
 	printf("Bienvenido a la calculadora.\n\n");
 	system("pause");
 	system("cls");
 	do
 	{
-		mostrarMenu(&opcion, numero1, numero2, flagNumero1, flagNumero2, flagResultados);
+		mostrarMenu(&opcion, numero1, numero2, flagNumero1, flagNumero2, flagReiniciar);
 		switch (opcion)
 		{
 			case 1:
@@ -133,6 +134,8 @@ int main(void)
 					}
 					system("pause");
 				}
+				flagNumero1 = 0;
+				flagNumero2 = 0;
 				system("cls");
 				break;
 			case 5:
