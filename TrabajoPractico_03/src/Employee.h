@@ -1,6 +1,7 @@
 #ifndef employee_H_INCLUDED
 #define employee_H_INCLUDED
 #define LEN_NAME 128
+#include "LinkedList.h"
 
 typedef struct
 {
@@ -12,6 +13,7 @@ typedef struct
 
 Employee* employee_new();
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr, char* sueldoStr);
+int employee_generateNewId(void);
 void employee_delete(Employee* this);
 int employee_setId(Employee* this,int id);
 int employee_getId(Employee* this,int* id);
@@ -21,5 +23,8 @@ int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas);
 int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas);
 int employee_setSueldo(Employee* this,int sueldo);
 int employee_getSueldo(Employee* this,int* sueldo);
+int employee_allSets(Employee* this, int id, char* nombre, int horasTrabajadas, int sueldo);
+int employee_allGets(Employee* this, int* id, char* nombre, int* horasTrabajadas, int* sueldo);
+int employee_findById(LinkedList* pArrayListEmployee, int id, int* pIndex);
 
 #endif // employee_H_INCLUDED

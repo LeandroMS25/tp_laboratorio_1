@@ -163,7 +163,8 @@ int isName(char* cadena,int len)
 	for (int i = 0; i <= len && cadena[i] != '\0'; i++)
 	{
 		if(	(cadena[i] < 'A' || cadena[i] > 'Z' ) &&
-			(cadena[i] < 'a' || cadena[i] > 'z' ))
+			(cadena[i] < 'a' || cadena[i] > 'z' ) &&
+			cadena[i] != ' ' && cadena[i] != '-')
 		{
 			respuesta = 0;
 			break;
