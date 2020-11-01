@@ -59,10 +59,15 @@ int main()
 				}
             	break;
             case 8:
+            	if(!(controller_saveAsText("data2.csv", listaEmpleados)))
+				{
+					printf("Los datos se guardaron correctamente en el archivo.\n");
+				}
             	break;
             case 9:
             	break;
             case 10:
+            	printf("Adios.\n");
             	break;
         }
     }while(option != OPTIONS);

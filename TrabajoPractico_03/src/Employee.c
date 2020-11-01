@@ -41,6 +41,10 @@ Employee* employee_newParametros(char* idStr, char* nombreStr, char* horasTrabaj
 			return this;
 		}
 	}
+	else
+	{
+		printf("No se pudo cargar el empleado.\n");
+	}
 	return NULL;
 }
 /*
@@ -263,6 +267,35 @@ int employee_findById(LinkedList* pArrayListEmployee, int id, int* pIndex)
 				retorno = 0;
 				break;
 			}
+		}
+	}
+	return retorno;
+}
+/**
+ * \brief Criterio para ordenar la lista
+ * \param void* pElement1, puntero al espacio de memoria.
+ * \param void* pElement2, puntero al espacio de memoria.
+ * \return Retorna el criterio con el que se ordenara la lista.
+ */
+int employee_funcionCriterio(void* pElement1, void* pElement2)
+{
+	int retorno = 0;
+	Employee* auxEmp1;
+	Employee* auxEmp2;
+	char bufferNombre1[LEN_NAME];
+	char bufferNombre2[LEN_NAME];
+
+	auxEmp1 = (Employee*)pElement1;
+	auxEmp2 = (Employee*)pElement2;
+	if(!(employee_getNombre(auxEmp1, bufferNombre1)) && !(employee_getNombre(auxEmp2, bufferNombre2)))
+	{
+		if(strncmp(bufferNombre1,bufferNombre2,LEN_NAME) > 0)
+		{
+			retorno = -1;
+		}
+		else
+		{
+			retorno = 1;
 		}
 	}
 	return retorno;

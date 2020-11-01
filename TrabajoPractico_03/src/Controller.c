@@ -107,6 +107,10 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 			ll_set(pArrayListEmployee, indexModify, aux);
 			retorno = 0;
 		}
+		else
+		{
+			printf("El ID seleccionado no corresponde a un empleado de la lista.\n");
+		}
 	}
 	return retorno;
 }
@@ -132,6 +136,10 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 		{
 			ll_remove(pArrayListEmployee, indexRemove);
 			retorno = 0;
+		}
+		else
+		{
+			printf("El ID seleccionado no corresponde a un empleado de la lista.\n");
 		}
 	}
 	return retorno;
@@ -181,68 +189,12 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
 
 	int retorno = -1;
-	int len = ll_len(pArrayListEmployee);
-	char auxNombre[128];
-	char auxNombre1[128];
-	Employee* empleado = employee_new();
-	Employee* empleadoAux = employee_new();
 
-	printf("\nSe estan ordenando\n");
-	if ( empleado != NULL && empleadoAux != NULL && len != 0)
+	if(ll_sort(pArrayListEmployee, employee_funcionCriterio, 1) == 0)
 	{
-		for (int i = 0; i < len; i++)
-		{
-			for ( int j = i + 1; j < len; j++)
-			{
-				empleado = ll_get(pArrayListEmployee, i);
-				empleadoAux = ll_get(pArrayListEmployee, j);
-				employee_getNombre(empleado, auxNombre);
-				employee_getNombre(empleadoAux, auxNombre1);
-				if ( strncmp(auxNombre, auxNombre1, LEN_NAME) > 0 )
-				{
-					ll_set(pArrayListEmployee,j, empleado);
-					ll_set(pArrayListEmployee,i, empleadoAux);
-				}
-			}
-		}
-		retorno = 0;
-		printf("\nSe ordenaron los empleados \n\n");
-	}
-	return retorno;
-
-	/*
-	int retorno = -1;
-	int len;
-	char bufferNombre1[LEN_NAME];
-	char bufferNombre2[LEN_NAME];
-	Employee* aux = employee_new();
-	Employee* aux2 = employee_new();
-	int flagSwap = 1;
-
-	len = ll_len(pArrayListEmployee);
-	if(pArrayListEmployee != NULL && len > 0 && aux != NULL && aux2 != NULL)
-	{
-		while(flagSwap)
-		{
-			flagSwap = 0;
-			for (int i = 0; i < (len - 1); i++)
-			{
-				aux = ll_get(pArrayListEmployee, i);
-				aux2 = ll_get(pArrayListEmployee, i+1);
-				if(	!(employee_getNombre(aux, bufferNombre1)) &&
-					!(employee_getNombre(aux2, bufferNombre2)) &&
-					strcmp(bufferNombre1, bufferNombre2) > 0)
-				{
-					ll_set(pArrayListEmployee, i, aux);
-					ll_set(pArrayListEmployee, i+1, aux2);
-					flagSwap = 1;
-				}
-			}
-		}
 		retorno = 0;
 	}
 	return retorno;
-	*/
 }
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
  *
@@ -253,7 +205,39 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int retorno = -1;
+	Employee* auxEmp = employee_new();
+	int len = ll_len(pArrayListEmployee);
+	int i;
+	int bufferId;
+	int bufferSueldo;
+	int bufferHorasTrabajadas;
+	char bufferNombre[LEN_NAME];
+
+	FILE* pFile;
+	if(path != NULL && pArrayListEmployee != NULL)
+	{
+		pFile = fopen(path,"w");
+		if(pFile != NULL)
+		{
+			fprintf(pFile, "%s,%s,%s,%s\n","id","nombre","horasTrabajadas","sueldo");
+			for (i = 0; i < len; i++)
+			{
+				auxEmp = ll_get(pArrayListEmployee, i);
+				if(!(employee_allGets(auxEmp, &bufferId, bufferNombre, &bufferHorasTrabajadas, &bufferSueldo)))
+				{
+					fprintf(pFile, "%d,%s,%d,%d\n",bufferId,bufferNombre,bufferHorasTrabajadas,bufferSueldo);
+					retorno = 0;
+				}
+			}
+			fclose(pFile);
+		}
+		else
+		{
+			printf("No se pudo abrir el archivo.\n");
+		}
+	}
+	return retorno;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
