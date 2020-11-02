@@ -13,7 +13,7 @@
 int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 {
 	int retorno = -1;
-	Employee* aux;
+	Employee* auxEmp;
 	int r;
 	char var1[50], var2[50], var3[50], var4[50];
 
@@ -22,10 +22,10 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 		do
 		{
 			r = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",var1,var2,var3,var4);
-			if(r == 4)
+			auxEmp = employee_newParametros(var1, var2, var3, var4);
+			if(r == 4 && auxEmp != NULL)
 			{
-				aux = employee_newParametros(var1, var2, var3, var4);
-				ll_add(pArrayListEmployee, aux);
+				ll_add(pArrayListEmployee, auxEmp);
 				retorno = 0;
 			}
 		}while(!feof(pFile));
@@ -42,5 +42,21 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
 	int retorno = -1;
+	Employee* auxEmp;
+	int r;
+
+	if(pFile != NULL && pArrayListEmployee != NULL)
+	{
+		do
+		{
+			auxEmp = employee_new();
+			r = fread(auxEmp, sizeof(Employee), 1, pFile);
+			if(r == 1 && auxEmp != NULL)
+			{
+				ll_add(pArrayListEmployee, auxEmp);
+				retorno = 0;
+			}
+		}while(!feof(pFile));
+	}
 	return retorno;
 }

@@ -39,8 +39,15 @@ int utn_showMenu(int* pOption, LinkedList* pArrayListEmployee)
 		}
 		else
 		{
-			*pOption = option;
-			retorno = 0;
+			if(ll_isEmpty(pArrayListEmployee) == 0 && option < 3)
+			{
+				printf("La lista ya fue cargada.\n");
+			}
+			else
+			{
+				*pOption = option;
+				retorno = 0;
+			}
 		}
 	}
 	return retorno;

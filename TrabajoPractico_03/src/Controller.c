@@ -46,9 +46,24 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
-}
+	int retorno = -1;
 
+	FILE* pFile;
+	if(path != NULL && pArrayListEmployee != NULL)
+	{
+		pFile = fopen(path,"rb");
+		if(pFile != NULL && !(parser_EmployeeFromBinary(pFile, pArrayListEmployee)))
+		{
+			retorno = 0;
+			fclose(pFile);
+		}
+		else
+		{
+			printf("No se pudo abrir el archivo.\n");
+		}
+	}
+	return retorno;
+}
 /** \brief Alta de empleados
  *
  * \param path char*
@@ -59,19 +74,21 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
 	int retorno = -1;
-	Employee* aux = employee_new();
+	Employee* auxEmp = employee_new();
 	char auxNombre[LEN_TEXT];
 	int auxHoras;
 	int auxSueldo;
+	int idMax;
 
-	if(pArrayListEmployee != NULL && aux != NULL)
+	if(pArrayListEmployee != NULL && auxEmp != NULL)
 	{
 		if( utn_getName(auxNombre, "Ingrese el nombre del empleado: ", "Nombre invalido.\n", 2, LEN_TEXT - 1) == 0 &&
 			utn_getNumberInt(&auxHoras ,"Ingrese las horas trabajadas del empleado: ", "Horas invalidas.\n", 0, INT_MAX, 2) == 0 &&
 			utn_getNumberInt(&auxSueldo, "Ingrese el sueldo del empleado: ", "Sueldo invalido.\n", 0, INT_MAX, 2) == 0 &&
-			!(employee_allSets(aux, employee_generateNewId(), auxNombre, auxHoras, auxSueldo)))
+			!(employee_findMaxId(pArrayListEmployee, &idMax)) &&
+			!(employee_allSets(auxEmp, idMax, auxNombre, auxHoras, auxSueldo)))
 		{
-			ll_add(pArrayListEmployee, aux);
+			ll_add(pArrayListEmployee, auxEmp);
 			retorno = 0;
 		}
 	}
@@ -87,14 +104,14 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 int controller_editEmployee(LinkedList* pArrayListEmployee)
 {
 	int retorno = -1;
-	Employee* aux = employee_new();
+	Employee* auxEmp = employee_new();
 	char auxNombre[LEN_TEXT];
 	int auxHoras;
 	int auxSueldo;
 	int idModify;
 	int indexModify;
 
-	if(pArrayListEmployee != NULL && aux != NULL)
+	if(pArrayListEmployee != NULL && auxEmp != NULL)
 	{
 		controller_ListEmployee(pArrayListEmployee);
 		if( utn_getNumberInt(&idModify ,"Ingrese el ID del empleado a modificar: ", "ID invalido.\n", 0, INT_MAX, 2) == 0 &&
@@ -102,9 +119,9 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 			utn_getName(auxNombre, "Ingrese el nombre del empleado: ", "Nombre invalido.\n", 2, LEN_TEXT - 1) == 0 &&
 			utn_getNumberInt(&auxHoras ,"Ingrese las horas trabajadas del empleado: ", "Horas invalidas.\n", 0, INT_MAX, 2) == 0 &&
 			utn_getNumberInt(&auxSueldo, "Ingrese el sueldo del empleado: ", "Sueldo invalido.\n", 0, INT_MAX, 2) == 0 &&
-			!(employee_allSets(aux, idModify, auxNombre, auxHoras, auxSueldo)))
+			!(employee_allSets(auxEmp, idModify, auxNombre, auxHoras, auxSueldo)))
 		{
-			ll_set(pArrayListEmployee, indexModify, aux);
+			ll_set(pArrayListEmployee, indexModify, auxEmp);
 			retorno = 0;
 		}
 		else
@@ -187,10 +204,9 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
-
 	int retorno = -1;
 
-	if(ll_sort(pArrayListEmployee, employee_funcionCriterio, 1) == 0)
+	if(ll_sort(pArrayListEmployee, employee_funcionCriterio, 0) == 0)
 	{
 		retorno = 0;
 	}
@@ -213,9 +229,9 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 	int bufferSueldo;
 	int bufferHorasTrabajadas;
 	char bufferNombre[LEN_NAME];
-
 	FILE* pFile;
-	if(path != NULL && pArrayListEmployee != NULL)
+
+	if(path != NULL && pArrayListEmployee != NULL && auxEmp != NULL && len > 0)
 	{
 		pFile = fopen(path,"w");
 		if(pFile != NULL)
@@ -249,6 +265,29 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int retorno = -1;
+	Employee* auxEmp = employee_new();
+	int len = ll_len(pArrayListEmployee);
+	FILE* pFile;
+
+	if(path != NULL && pArrayListEmployee != NULL && auxEmp != NULL && len > 0)
+	{
+		pFile = fopen(path,"wb");
+		if (pFile != NULL)
+		{
+			for(int i = 0; i < len; i++)
+			{
+				auxEmp = ll_get(pArrayListEmployee, i);
+				fwrite(auxEmp, sizeof(Employee), 1, pFile);
+			}
+			retorno = 0;
+			fclose(pFile);
+		}
+		else
+		{
+			printf("No se pudo abrir el archivo.\n");
+		}
+	}
+	return retorno;
 }
 

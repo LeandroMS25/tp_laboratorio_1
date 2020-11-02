@@ -13,20 +13,26 @@ int main()
 {
 	setbuf(stdout,NULL);
     int option = 0;
+    int id;
 
     LinkedList* listaEmpleados = ll_newLinkedList();
     do
     {
+    	option = 0;
     	utn_showMenu(&option, listaEmpleados);
         switch(option)
         {
             case 1:
-                if(!(controller_loadFromText("data.csv",listaEmpleados)))
+                if(!(controller_loadFromText("data2.csv",listaEmpleados)) && !(employee_findMaxId(listaEmpleados, &id)))
 				{
                 	printf("Los datos se cargaron correctamente.\n");
 				}
                 break;
             case 2:
+            	if(!(controller_loadFromBinary("data.bin",listaEmpleados)))
+				{
+					printf("Los datos se cargaron correctamente.\n");
+				}
             	break;
             case 3:
             	if(!(controller_addEmployee(listaEmpleados)))
@@ -61,10 +67,14 @@ int main()
             case 8:
             	if(!(controller_saveAsText("data2.csv", listaEmpleados)))
 				{
-					printf("Los datos se guardaron correctamente en el archivo.\n");
+					printf("Los datos se guardaron correctamente en el archivo de texto.\n");
 				}
             	break;
             case 9:
+            	if(!(controller_saveAsBinary("data.bin", listaEmpleados)))
+				{
+					printf("Los datos se guardaron correctamente en el archivo binario.\n");
+				}
             	break;
             case 10:
             	printf("Adios.\n");

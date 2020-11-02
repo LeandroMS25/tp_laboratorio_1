@@ -37,13 +37,8 @@ Employee* employee_newParametros(char* idStr, char* nombreStr, char* horasTrabaj
 	{
 		if(employee_allSets(this, atoi(idStr), nombreStr, atoi(horasTrabajadasStr), atoi(sueldoStr)) == 0)
 		{
-			employee_generateNewId();
 			return this;
 		}
-	}
-	else
-	{
-		printf("No se pudo cargar el empleado.\n");
 	}
 	return NULL;
 }
@@ -291,11 +286,34 @@ int employee_funcionCriterio(void* pElement1, void* pElement2)
 	{
 		if(strncmp(bufferNombre1,bufferNombre2,LEN_NAME) > 0)
 		{
-			retorno = -1;
+			retorno = 1;
 		}
 		else
 		{
-			retorno = 1;
+			retorno = -1;
+		}
+	}
+	return retorno;
+}
+int employee_findMaxId(LinkedList* pArrayListEmployee, int* pMaxId)
+{
+	int retorno = -1;
+	Employee* auxEmp = employee_new();
+	int len = ll_len(pArrayListEmployee);
+	int bufferId;
+	int i;
+
+	if(pArrayListEmployee != NULL && pMaxId != NULL && auxEmp != NULL)
+	{
+		for (i = 0; i < len; i++)
+		{
+			auxEmp = ll_get(pArrayListEmployee, i);
+			employee_getId(auxEmp, &bufferId);
+			if(i == 0 || bufferId > *pMaxId)
+			{
+				*pMaxId = bufferId;
+			}
+			retorno = 0;
 		}
 	}
 	return retorno;
