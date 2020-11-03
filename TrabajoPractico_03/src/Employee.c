@@ -37,6 +37,7 @@ Employee* employee_newParametros(char* idStr, char* nombreStr, char* horasTrabaj
 	{
 		if(employee_allSets(this, atoi(idStr), nombreStr, atoi(horasTrabajadasStr), atoi(sueldoStr)) == 0)
 		{
+			employee_generateNewId();
 			return this;
 		}
 	}
@@ -295,6 +296,7 @@ int employee_funcionCriterio(void* pElement1, void* pElement2)
 	}
 	return retorno;
 }
+/*
 int employee_findMaxId(LinkedList* pArrayListEmployee, int* pMaxId)
 {
 	int retorno = -1;
@@ -318,6 +320,7 @@ int employee_findMaxId(LinkedList* pArrayListEmployee, int* pMaxId)
 	}
 	return retorno;
 }
+*/
 /**
  * \brief Incrementa el id y lo retorna.
  * \return Retorna el id

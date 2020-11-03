@@ -13,8 +13,6 @@ int main()
 {
 	setbuf(stdout,NULL);
     int option = 0;
-    int id;
-
     LinkedList* listaEmpleados = ll_newLinkedList();
     do
     {
@@ -23,7 +21,7 @@ int main()
         switch(option)
         {
             case 1:
-                if(!(controller_loadFromText("data2.csv",listaEmpleados)) && !(employee_findMaxId(listaEmpleados, &id)))
+                if(!(controller_loadFromText("data2.csv",listaEmpleados)))
 				{
                 	printf("Los datos se cargaron correctamente.\n");
 				}

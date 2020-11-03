@@ -78,15 +78,13 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 	char auxNombre[LEN_TEXT];
 	int auxHoras;
 	int auxSueldo;
-	int idMax;
 
 	if(pArrayListEmployee != NULL && auxEmp != NULL)
 	{
 		if( utn_getName(auxNombre, "Ingrese el nombre del empleado: ", "Nombre invalido.\n", 2, LEN_TEXT - 1) == 0 &&
 			utn_getNumberInt(&auxHoras ,"Ingrese las horas trabajadas del empleado: ", "Horas invalidas.\n", 0, INT_MAX, 2) == 0 &&
 			utn_getNumberInt(&auxSueldo, "Ingrese el sueldo del empleado: ", "Sueldo invalido.\n", 0, INT_MAX, 2) == 0 &&
-			!(employee_findMaxId(pArrayListEmployee, &idMax)) &&
-			!(employee_allSets(auxEmp, idMax, auxNombre, auxHoras, auxSueldo)))
+			!(employee_allSets(auxEmp, employee_generateNewId(), auxNombre, auxHoras, auxSueldo)))
 		{
 			ll_add(pArrayListEmployee, auxEmp);
 			retorno = 0;
