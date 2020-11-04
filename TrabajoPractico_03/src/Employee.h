@@ -27,6 +27,6 @@ int employee_allSets(Employee* this, int id, char* nombre, int horasTrabajadas, 
 int employee_allGets(Employee* this, int* id, char* nombre, int* horasTrabajadas, int* sueldo);
 int employee_findById(LinkedList* pArrayListEmployee, int id, int* pIndex);
 int employee_findMaxId(LinkedList* pArrayListEmployee, int* pMaxId);
-int employee_funcionCriterio(void* pElement1, void* pElement2);
+int employee_funcionCriterio(void* this1, void* this2);
 
 #endif // employee_H_INCLUDED

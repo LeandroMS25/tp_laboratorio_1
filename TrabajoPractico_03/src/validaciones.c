@@ -268,11 +268,11 @@ int utn_getName(char *pResultado, char *mensaje, char *mensajeError, int reinten
 	int retorno = -1;
 	char bufferString[LEN_BUFFER_STRING];
 
-	if( 	pResultado != NULL &&
-			mensaje != NULL &&
-			mensajeError != NULL &&
-			reintentos >= 0 &&
-			len > 1)
+	if( pResultado != NULL &&
+		mensaje != NULL &&
+		mensajeError != NULL &&
+		reintentos >= 0 &&
+		len > 1)
 	{
 		do
 		{
@@ -309,10 +309,10 @@ int utn_getNumberInt(int *pResultado, char *mensaje, char *mensajeError, int min
 	int retorno = -1;
 	int bufferInt;
 
-	if( 	pResultado != NULL &&
-			mensaje != NULL &&
-			mensajeError != NULL &&
-			reintentos >= 0)
+	if( pResultado != NULL &&
+		mensaje != NULL &&
+		mensajeError != NULL &&
+		reintentos >= 0)
 	{
 		do
 		{

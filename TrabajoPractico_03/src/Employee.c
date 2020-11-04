@@ -37,7 +37,6 @@ Employee* employee_newParametros(char* idStr, char* nombreStr, char* horasTrabaj
 	{
 		if(employee_allSets(this, atoi(idStr), nombreStr, atoi(horasTrabajadasStr), atoi(sueldoStr)) == 0)
 		{
-			employee_generateNewId();
 			return this;
 		}
 	}
@@ -269,23 +268,22 @@ int employee_findById(LinkedList* pArrayListEmployee, int id, int* pIndex)
 }
 /**
  * \brief Criterio para ordenar la lista
- * \param void* pElement1, puntero al espacio de memoria.
- * \param void* pElement2, puntero al espacio de memoria.
+ * \param void* this1, puntero al espacio de memoria.
+ * \param void* this2, puntero al espacio de memoria.
  * \return Retorna el criterio con el que se ordenara la lista.
  */
-int employee_funcionCriterio(void* pElement1, void* pElement2)
+int employee_funcionCriterio(void* this1, void* this2)
 {
 	int retorno = 0;
-	Employee* auxEmp1;
-	Employee* auxEmp2;
+	Employee* auxEmp1 = (Employee*)this1;
+	Employee* auxEmp2 = (Employee*)this2;
 	char bufferNombre1[LEN_NAME];
 	char bufferNombre2[LEN_NAME];
 
-	auxEmp1 = (Employee*)pElement1;
-	auxEmp2 = (Employee*)pElement2;
-	if(!(employee_getNombre(auxEmp1, bufferNombre1)) && !(employee_getNombre(auxEmp2, bufferNombre2)))
+	if( this1 != NULL && this2 != NULL &&
+		!(employee_getNombre(auxEmp1, bufferNombre1)) && !(employee_getNombre(auxEmp2, bufferNombre2)))
 	{
-		if(strncmp(bufferNombre1,bufferNombre2,LEN_NAME) > 0)
+		if(strcmp(bufferNombre1,bufferNombre2) < 0)
 		{
 			retorno = 1;
 		}
@@ -296,7 +294,12 @@ int employee_funcionCriterio(void* pElement1, void* pElement2)
 	}
 	return retorno;
 }
-/*
+/**
+ * \brief Encuentra el id maximo de la linkedlist.
+ * \param LinkedList* pArrayListEmployee, Es el puntero al array.
+ * \param int* pMaxId, puntero al espacio de memmoria donde se encuentra el id maximo.
+ * \return (-1) Error / (0) Ok
+ */
 int employee_findMaxId(LinkedList* pArrayListEmployee, int* pMaxId)
 {
 	int retorno = -1;
@@ -311,16 +314,15 @@ int employee_findMaxId(LinkedList* pArrayListEmployee, int* pMaxId)
 		{
 			auxEmp = ll_get(pArrayListEmployee, i);
 			employee_getId(auxEmp, &bufferId);
-			if(i == 0 || bufferId > *pMaxId)
+			if(i == 0 || bufferId >= *pMaxId)
 			{
-				*pMaxId = bufferId;
+				*pMaxId = bufferId+1;
 			}
 			retorno = 0;
 		}
 	}
 	return retorno;
 }
-*/
 /**
  * \brief Incrementa el id y lo retorna.
  * \return Retorna el id

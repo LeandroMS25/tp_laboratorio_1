@@ -10,12 +10,12 @@
  * \return int
  *
  */
-int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
+int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee, int* pIdMax)
 {
 	int retorno = -1;
 	Employee* auxEmp;
 	int r;
-	char var1[50], var2[50], var3[50], var4[50];
+	char var1[4096], var2[4096], var3[4096], var4[4096];
 
 	if(pFile != NULL && pArrayListEmployee != NULL)
 	{
@@ -23,10 +23,17 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 		{
 			r = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",var1,var2,var3,var4);
 			auxEmp = employee_newParametros(var1, var2, var3, var4);
-			if(r == 4 && auxEmp != NULL)
+			if(auxEmp != NULL)
 			{
-				ll_add(pArrayListEmployee, auxEmp);
-				retorno = 0;
+				if(r == 4)
+				{
+					ll_add(pArrayListEmployee, auxEmp);
+					retorno = 0;
+				}
+				else
+				{
+					employee_delete(auxEmp);
+				}
 			}
 		}while(!feof(pFile));
 	}
@@ -51,10 +58,17 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 		{
 			auxEmp = employee_new();
 			r = fread(auxEmp, sizeof(Employee), 1, pFile);
-			if(r == 1 && auxEmp != NULL)
+			if(auxEmp != NULL)
 			{
-				ll_add(pArrayListEmployee, auxEmp);
-				retorno = 0;
+				if(r == 1)
+				{
+					ll_add(pArrayListEmployee, auxEmp);
+					retorno = 0;
+				}
+				else
+				{
+					employee_delete(auxEmp);
+				}
 			}
 		}while(!feof(pFile));
 	}
