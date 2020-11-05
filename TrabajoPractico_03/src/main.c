@@ -21,7 +21,7 @@ int main()
         switch(option)
         {
             case 1:
-                if(!(controller_loadFromText("data.csv",listaEmpleados)))
+                if(!(controller_loadFromText("data2.csv",listaEmpleados)))
 				{
                 	printf("Los datos se cargaron correctamente.\n");
 				}
